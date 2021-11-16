@@ -4,6 +4,8 @@ from model import model_setup_and_train, evaluate_model
 from BugRepotsClassifier import BugRepotsClassifier
 import csv
 import pandas as pd
+import sys
+sys.path.append('../')
 from bert2.data_prepare import data_preprocess
 
 
@@ -12,12 +14,10 @@ if __name__ == '__main__':
     data = pd.read_csv(file_path)
     train_df, val_df, test_target = data_preprocess(data)
 
-
     BERT_MODEL_NAME = "bert-base-cased"
     tokenizer = BertTokenizer.from_pretrained(BERT_MODEL_NAME)
 
-    # bert_model = BertModel.from_pretrained(BERT_MODEL_NAME, return_dict=True)
-    # train model
+    # build and train model
     trainer = model_setup_and_train(tokenizer, train_df, val_df)
 
     print("-------Done Training-------")

@@ -5,8 +5,6 @@ from sklearn.model_selection import train_test_split
 def read_data(file_path, RANDOM_SEED=42):
     df = pd.read_csv(file_path)
 
-
-
     train_df, val_df = train_test_split(df, test_size=0.2, random_state=RANDOM_SEED)
     train_df.shape, val_df.shape
 
