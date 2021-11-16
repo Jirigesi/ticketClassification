@@ -24,8 +24,8 @@ if __name__ == '__main__':
 
     print('Encoding Tickets...')
     print("")
-    train_input_ids, train_attention_masks = bert_encode(TOKENIZER, train, 128)
-    test_input_ids, test_attention_masks = bert_encode(TOKENIZER, test, 128)
+    train_input_ids, train_attention_masks = bert_encode(TOKENIZER, train, 64)
+    test_input_ids, test_attention_masks = bert_encode(TOKENIZER, test, 64)
     print("")
     print('Tickets encoded successfully!')
 
@@ -38,12 +38,11 @@ if __name__ == '__main__':
     print('Finish model tuning!')
 
     preds_base = BERT_base.predict([test_input_ids, test_attention_masks])
-
     preds_base_1d = preds_base.flatten()
-    # header = ['label', 'predict']
+
     with open('../val_result.csv', 'w') as f:
         writer = csv.writer(f)
-        # writer.writerows(header)
+        writer.writerows(["label", "predict"])
         writer.writerows(zip(test_target, preds_base_1d))
     print("Finish validation!")
 

@@ -7,8 +7,8 @@ import tensorflow as tf
 def build_model(model_layer, learning_rate, use_meta=False, add_dense=True,
                 dense_dim=64, add_dropout=True, dropout=0.2):
 
-    input_ids = tf.keras.Input(shape=(128,), dtype='int32')
-    attention_masks = tf.keras.Input(shape=(128,), dtype='int32')
+    input_ids = tf.keras.Input(shape=(64,), dtype='int32')
+    attention_masks = tf.keras.Input(shape=(64,), dtype='int32')
 
     transformer_layer = model_layer([input_ids, attention_masks])
 
