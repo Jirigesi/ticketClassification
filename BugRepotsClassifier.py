@@ -57,9 +57,10 @@ class BugRepotsClassifier(pl.LightningModule):
                 predictions.append(out_predictions)
         labels = torch.stack(labels).int()
         predictions = torch.stack(predictions)
-
-        fpr, tpr, threshold = metrics.roc_curve(labels['label'], predictions['label'])
-        class_roc_auc = metrics.auc(fpr, tpr)
+        LABEL_COLUMNS = ["label"]
+        for i, name in enumerate(LABEL_COLUMNS):
+            fpr, tpr, threshold = metrics.roc_curve(labels[:, i], predictions[:, i])
+            class_roc_auc = metrics.auc(fpr, tpr)
 
         self.logger.experiment.add_scalar("label_roc_auc/Train", class_roc_auc, self.current_epoch)
 
