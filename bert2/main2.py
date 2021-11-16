@@ -15,9 +15,9 @@ if __name__ == '__main__':
     bert_base = TFBertModel.from_pretrained('bert-base-cased')
     TOKENIZER = BertTokenizer.from_pretrained("bert-base-cased")
 
-    BATCH_SIZE = 16
+    BATCH_SIZE = 8
 
-    EPOCHS = 3
+    EPOCHS = 2
     Token_Max_Length = 256
 
     print('Encoding Tickets...')
