@@ -20,6 +20,8 @@ if __name__ == '__main__':
     # train model
     trainer = model_setup_and_train(tokenizer, train_df, val_df)
 
+    print("-------Done Training-------")
+
     # Get the best performance model
     trained_model = BugRepotsClassifier.load_from_checkpoint(
         trainer.checkpoint_callback.best_model_path,
@@ -30,7 +32,7 @@ if __name__ == '__main__':
     MAX_TOKEN_COUNT = 128
     # evaluate model on val_data
     labels, predictions = evaluate_model(trained_model, val_df, tokenizer, MAX_TOKEN_COUNT)
-
+    print("-------Done Testing-------")
     with open('val_result.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerows(zip(labels, predictions))

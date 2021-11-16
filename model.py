@@ -8,11 +8,12 @@ from pytorch_lightning.loggers import TensorBoardLogger
 
 def model_setup_and_train(tokenizer, train_df, val_df):
     # hyperparameters
-    N_EPOCHS = 10
-    BATCH_SIZE = 8
+    N_EPOCHS = 5
+    BATCH_SIZE = 16
     steps_per_epoch = len(train_df) // BATCH_SIZE
     total_training_steps = steps_per_epoch * N_EPOCHS
     warmup_steps = total_training_steps // 5
+
     # data modules
     data_module = BugReportsDataModule(train_df, val_df, tokenizer, batch_size=BATCH_SIZE)
     data_module.setup()
@@ -22,6 +23,7 @@ def model_setup_and_train(tokenizer, train_df, val_df):
         n_warmup_steps=warmup_steps,
         n_training_steps=total_training_steps
     )
+
     checkpoint_callback = ModelCheckpoint(
         dirpath="checkpoints",
         filename="best-checkpoint",
@@ -30,8 +32,10 @@ def model_setup_and_train(tokenizer, train_df, val_df):
         monitor="val_loss",
         mode="min"
     )
+
     logger = TensorBoardLogger("lightning_logs", name="bug-tickets")
     early_stopping_callback = EarlyStopping(monitor='val_loss', patience=2)
+
     trainer = pl.Trainer(
         logger=logger,
         checkpoint_callback=checkpoint_callback,
@@ -40,6 +44,7 @@ def model_setup_and_train(tokenizer, train_df, val_df):
         gpus=1,
         progress_bar_refresh_rate=30
     )
+
     trainer.fit(model, data_module)
     return trainer
 
