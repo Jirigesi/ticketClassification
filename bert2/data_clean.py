@@ -1,86 +1,6 @@
 import re
 import string
 
-# clean data
-puncts = [',', '.', '"', ':', ')', '(', '-', '!', '?', '|', ';', "'", '$', '&', '/', '[', ']', '>', '%', '=', '#', '*',
-          '+', '\\', '•', '~', '@', '£',
-          '·', '_', '{', '}', '©', '^', '®', '`', '<', '→', '°', '€', '™', '›', '♥', '←', '×', '§', '″', '′', 'Â', '█',
-          '½', 'à', '…', '\xa0', '\t',
-          '“', '★', '”', '–', '●', 'â', '►', '−', '¢', '²', '¬', '░', '¶', '↑', '±', '¿', '▾', '═', '¦', '║', '―', '¥',
-          '▓', '—', '‹', '─', '\u3000', '\u202f',
-          '▒', '：', '¼', '⊕', '▼', '▪', '†', '■', '’', '▀', '¨', '▄', '♫', '☆', 'é', '¯', '♦', '¤', '▲', 'è', '¸', '¾',
-          'Ã', '⋅', '‘', '∞', '«',
-          '∙', '）', '↓', '、', '│', '（', '»', '，', '♪', '╩', '╚', '³', '・', '╦', '╣', '╔', '╗', '▬', '❤', 'ï', 'Ø', '¹',
-          '≤', '‡', '√', '�']
-
-mispell_dict = {"aren't": "are not",
-                "can't": "cannot",
-                "couldn't": "could not",
-                "couldnt": "could not",
-                "didn't": "did not",
-                "doesn't": "does not",
-                "doesnt": "does not",
-                "don't": "do not",
-                "hadn't": "had not",
-                "hasn't": "has not",
-                "haven't": "have not",
-                "havent": "have not",
-                "he'd": "he would",
-                "he'll": "he will",
-                "he's": "he is",
-                "i'd": "I would",
-                "i'd": "I had",
-                "i'll": "I will",
-                "i'm": "I am",
-                "isn't": "is not",
-                "it's": "it is",
-                "it'll": "it will",
-                "i've": "I have",
-                "let's": "let us",
-                "mightn't": "might not",
-                "mustn't": "must not",
-                "shan't": "shall not",
-                "she'd": "she would",
-                "she'll": "she will",
-                "she's": "she is",
-                "shouldn't": "should not",
-                "shouldnt": "should not",
-                "that's": "that is",
-                "thats": "that is",
-                "there's": "there is",
-                "theres": "there is",
-                "they'd": "they would",
-                "they'll": "they will",
-                "they're": "they are",
-                "theyre": "they are",
-                "they've": "they have",
-                "we'd": "we would",
-                "we're": "we are",
-                "weren't": "were not",
-                "we've": "we have",
-                "what'll": "what will",
-                "what're": "what are",
-                "what's": "what is",
-                "what've": "what have",
-                "where's": "where is",
-                "who'd": "who would",
-                "who'll": "who will",
-                "who're": "who are",
-                "who's": "who is",
-                "who've": "who have",
-                "won't": "will not",
-                "wouldn't": "would not",
-                "you'd": "you would",
-                "you'll": "you will",
-                "you're": "you are",
-                "you've": "you have",
-                "'re": " are",
-                "wasn't": "was not",
-                "we'll": " will",
-                "didn't": "did not"}
-
-puncts = puncts + list(string.punctuation)
-
 
 def remove_space_links(string):
     #     string = BeautifulSoup(string).text.strip().lower()
@@ -93,20 +13,6 @@ def remove_numbers(x):
     x = re.sub('\d+', ' ', x)
     return x
 
-
-def replace_typical_misspell(text):
-    mispellings_re = re.compile('(%s)' % '|'.join(mispell_dict.keys()))
-
-    def replace(match):
-        return mispell_dict[match.group(0)]
-
-    return mispellings_re.sub(replace, text)
-
-
-# def clean_punct(x):
-#     for punct in puncts:
-#         x = x.replace(punct, f' {punct} ')
-#     return x
 
 def preprocessText(input_str):
     # convert text to lowercase
@@ -135,7 +41,6 @@ def convert_str(x):
 def clean_data(df, cols: list):
     for col in cols:
         df[col] = df[col].apply(lambda x: convert_str(x))
-        df[col] = df[col].apply(lambda x: replace_typical_misspell(x))
         df[col] = df[col].apply(lambda x: preprocessText(x))
         df[col] = df[col].apply(lambda x: remove_space_links(x))
         df[col] = df[col].apply(lambda x: remove_numbers(x))

@@ -1,12 +1,10 @@
 from transformers import BertTokenizer
-from utils import read_data
+# from utils import read_data
 from model import model_setup_and_train, evaluate_model
 from BugRepotsClassifier import BugRepotsClassifier
 import csv
 import pandas as pd
-import sys
-sys.path.append('../')
-from bert2.data_prepare import data_preprocess
+from utils import data_preprocess
 
 
 if __name__ == '__main__':
