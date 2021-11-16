@@ -1,6 +1,6 @@
-from BugReportsDataset import BugReportsDataset
-from BugRepotsClassifier import BugRepotsClassifier
-from BugReportsDataModule import BugReportsDataModule
+from bert1.BugReportsDataset import BugReportsDataset
+from bert1.BugRepotsClassifier import BugRepotsClassifier
+from bert1.BugReportsDataModule import BugReportsDataModule
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger

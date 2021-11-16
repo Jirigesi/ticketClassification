@@ -1,9 +1,9 @@
 import numpy as np
 import torch
-from transformers import BertTokenizer, BertModel, AdamW, get_linear_schedule_with_warmup
-from utils import read_data
+from transformers import BertTokenizer
+from bert1.utils import read_data
 from model import model_setup_and_train, evaluate_model
-from BugRepotsClassifier import BugRepotsClassifier
+from bert1.BugRepotsClassifier import BugRepotsClassifier
 import csv
 
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # evaluate model on val_data
     labels, predictions = evaluate_model(trained_model, val_df, tokenizer, MAX_TOKEN_COUNT)
     print("-------Done Testing-------")
-    with open('val_result.csv', 'w') as f:
+    with open('../val_result.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerows(zip(labels, predictions))
 
