@@ -1,8 +1,6 @@
 import tensorflow as tf
 
-
 # TRAIN_BASE = True
-
 
 def build_model(model_layer, learning_rate, use_meta=False, add_dense=True,
                 dense_dim=64, add_dropout=True, dropout=0.2):

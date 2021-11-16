@@ -9,8 +9,6 @@ def data_preprocess(data):
     description_length = data['description'].apply(lambda x: len(str(x).split(" ")))
     data["description_token_length"] = description_length
 
-    data['summary'] = str(data['summary'])
-    data['description'] = str(data['description'])
     data = clean_data(data, ['summary', 'description'])
 
     data['combined'] = data['summary'] + ' ' + data['description']
@@ -18,7 +16,7 @@ def data_preprocess(data):
     positives = data[data['label'] == 1.0]
     negatives = data[data['label'] == 0.0]
 
-    positives_train, positives_test = train_test_split(positives, test_size=0.33)
+    positives_train, positives_test = train_test_split(positives, test_size=0.2)
     positive_train_nums = positives_train.shape[0]
 
     # get 1: 1 negative training data
@@ -34,7 +32,7 @@ def data_preprocess(data):
     train = train[[SELECT_TEXT, "label"]]
     test_target = test['label']
     test = test[[SELECT_TEXT]]
-
     train = train.rename(columns={SELECT_TEXT: "text", "label": "target"})
     test = test.rename(columns={SELECT_TEXT: "text"})
+
     return train, test, test_target

@@ -1,6 +1,5 @@
 import tensorflow as tf
 import pandas as pd
-import numpy as np
 from data_prepare import data_preprocess
 from transformers import TFBertModel
 from transformers import BertTokenizer
@@ -10,15 +9,13 @@ from bert_model import build_model
 
 if __name__ == '__main__':
     file_path = "../../data.csv"
-
     data = pd.read_csv(file_path)
-
     train, test, test_target = data_preprocess(data)
 
     bert_base = TFBertModel.from_pretrained('bert-base-cased')
     TOKENIZER = BertTokenizer.from_pretrained("bert-base-cased")
 
-    BATCH_SIZE = 8
+    BATCH_SIZE = 16
 
     EPOCHS = 1
 
@@ -33,6 +30,7 @@ if __name__ == '__main__':
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint('base_model.h5', monitor='val_loss', save_best_only=True,
                                                     save_weights_only=True)
+
     history = BERT_base.fit([train_input_ids, train_attention_masks], train.target, validation_split=.2, epochs=EPOCHS,
                             callbacks=[checkpoint], batch_size=BATCH_SIZE)
     print('Finish model tuning!')
