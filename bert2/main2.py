@@ -17,16 +17,17 @@ if __name__ == '__main__':
 
     BATCH_SIZE = 16
 
-    EPOCHS = 1
+    EPOCHS = 3
+    Token_Max_Length = 128
 
     print('Encoding Tickets...')
     print("")
-    train_input_ids, train_attention_masks = bert_encode(TOKENIZER, train, 64)
-    test_input_ids, test_attention_masks = bert_encode(TOKENIZER, test, 64)
+    train_input_ids, train_attention_masks = bert_encode(TOKENIZER, train, Token_Max_Length)
+    test_input_ids, test_attention_masks = bert_encode(TOKENIZER, test, Token_Max_Length)
     print("")
     print('Tickets encoded successfully!')
 
-    BERT_base = build_model(bert_base, learning_rate=1e-5)
+    BERT_base = build_model(bert_base, learning_rate=1e-5, Token_Max_Length=Token_Max_Length)
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint('base_model.h5', monitor='val_loss', save_best_only=True,
                                                     save_weights_only=True)

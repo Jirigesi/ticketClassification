@@ -2,11 +2,11 @@ import tensorflow as tf
 
 # TRAIN_BASE = True
 
-def build_model(model_layer, learning_rate, use_meta=False, add_dense=True,
+def build_model(model_layer, learning_rate, Token_Max_Length, use_meta=False, add_dense=True,
                 dense_dim=64, add_dropout=True, dropout=0.2):
 
-    input_ids = tf.keras.Input(shape=(64,), dtype='int32')
-    attention_masks = tf.keras.Input(shape=(64,), dtype='int32')
+    input_ids = tf.keras.Input(shape=(Token_Max_Length,), dtype='int32')
+    attention_masks = tf.keras.Input(shape=(Token_Max_Length,), dtype='int32')
 
     transformer_layer = model_layer([input_ids, attention_masks])
 
