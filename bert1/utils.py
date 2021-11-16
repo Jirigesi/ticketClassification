@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import re
-
+from data_clean import clean_data
 # def read_data(file_path, RANDOM_SEED=42):
 #     df = pd.read_csv(file_path)
 #     df = clean(df, )
@@ -26,17 +26,6 @@ import re
 #     return train_df, val_df
 
 
-def clean(data, col):
-    #
-    data[col] = re.sub(r'((http)\S+)', 'http', data[col].str)
-    data[col] = re.sub(r'\s+', ' ', data[col].str)
-    # Replace repeating characters
-    data[col] = data[col].str.replace("\r", " ")
-    data[col] = data[col].str.replace("\n", " ")
-    data[col] = data[col].str.replace("�", " ")
-    data[col] = re.sub('[\W_]+', ' ', data[col].str)
-
-    return data
 
 def data_preprocess(data):
     summary_length = data['summary'].apply(lambda x: len(str(x).split(" ")))
@@ -44,8 +33,7 @@ def data_preprocess(data):
     description_length = data['description'].apply(lambda x: len(str(x).split(" ")))
     data["description_token_length"] = description_length
 
-    data = clean(data, 'summary')
-    data = clean(data, 'description')
+    data = clean_data(data, ['summary', 'description'])
 
     data['combined'] = data['summary'] + ' ' + data['description']
 
