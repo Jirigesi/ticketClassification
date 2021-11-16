@@ -2,7 +2,7 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from bert2.data_clean import clean_data
+from data_clean import clean_data
 from transformers import TFBertModel
 from transformers import BertTokenizer
 import csv
