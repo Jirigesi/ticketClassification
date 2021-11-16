@@ -1,18 +1,19 @@
-import numpy as np
 import torch
 from transformers import BertTokenizer
 from bert1.utils import read_data
 from model import model_setup_and_train, evaluate_model
 from bert1.BugRepotsClassifier import BugRepotsClassifier
 import csv
+import pandas as pd
+from bert2.data_prepare import data_preprocess
 
 
 if __name__ == '__main__':
     file_path = "../data.csv"
-    RANDOM_SEED = 42
-    np.random.seed(RANDOM_SEED)
-    torch.manual_seed(RANDOM_SEED)
-    train_df, val_df = read_data(file_path, RANDOM_SEED)
+    data = pd.read_csv(file_path)
+    train_df, val_df, test_target = data_preprocess(data)
+
+
     BERT_MODEL_NAME = "bert-base-cased"
     tokenizer = BertTokenizer.from_pretrained(BERT_MODEL_NAME)
 
