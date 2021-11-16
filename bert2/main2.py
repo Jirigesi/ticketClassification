@@ -18,7 +18,7 @@ if __name__ == '__main__':
     BATCH_SIZE = 16
 
     EPOCHS = 3
-    Token_Max_Length = 128
+    Token_Max_Length = 256
 
     print('Encoding Tickets...')
     print("")
