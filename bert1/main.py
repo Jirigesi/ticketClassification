@@ -8,7 +8,7 @@ from utils import data_preprocess
 
 
 if __name__ == '__main__':
-    file_path = "../data.csv"
+    file_path = "../../data.csv"
     data = pd.read_csv(file_path)
     train_df, val_df, test_target = data_preprocess(data)
 
