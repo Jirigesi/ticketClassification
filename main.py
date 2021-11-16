@@ -8,7 +8,7 @@ import csv
 
 
 if __name__ == '__main__':
-    file_path = "data.csv"
+    file_path = "../data.csv"
     RANDOM_SEED = 42
     np.random.seed(RANDOM_SEED)
     torch.manual_seed(RANDOM_SEED)
