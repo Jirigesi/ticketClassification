@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     with open('../val_result.csv', 'w') as f:
         writer = csv.writer(f)
-        writer.writerows(["label", "predict"])
+        # writer.writerows(["label", "predict"])
         writer.writerows(zip(test_target, preds_base_1d))
     print("Finish validation!")
 
