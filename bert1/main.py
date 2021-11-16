@@ -1,8 +1,7 @@
-import torch
 from transformers import BertTokenizer
-from bert1.utils import read_data
+from utils import read_data
 from model import model_setup_and_train, evaluate_model
-from bert1.BugRepotsClassifier import BugRepotsClassifier
+from BugRepotsClassifier import BugRepotsClassifier
 import csv
 import pandas as pd
 from bert2.data_prepare import data_preprocess

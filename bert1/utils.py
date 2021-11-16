@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from bert2.data_clean import clean_data
 
 
 def read_data(file_path, RANDOM_SEED=42):
