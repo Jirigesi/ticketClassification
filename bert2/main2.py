@@ -35,14 +35,16 @@ if __name__ == '__main__':
                                                     save_weights_only=True)
     history = BERT_base.fit([train_input_ids, train_attention_masks], train.target, validation_split=.2, epochs=EPOCHS,
                             callbacks=[checkpoint], batch_size=BATCH_SIZE)
+    print('Finish model tuning!')
 
     preds_base = BERT_base.predict([test_input_ids, test_attention_masks])
 
     preds_base_1d = preds_base.flatten()
-    header = ['label' , 'predict']
+    # header = ['label', 'predict']
     with open('../val_result.csv', 'w') as f:
         writer = csv.writer(f)
-        writer.writerows(header)
+        # writer.writerows(header)
         writer.writerows(zip(test_target, preds_base_1d))
+    print("Finish validation!")
 
 
