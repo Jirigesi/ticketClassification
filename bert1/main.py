@@ -9,8 +9,7 @@ from utils import data_preprocess
 
 if __name__ == '__main__':
     file_path = "../../data.csv"
-    data = pd.read_csv(file_path)
-    train_df, val_df = data_preprocess(data)
+    train_df, val_df = data_preprocess(file_path)
 
     BERT_MODEL_NAME = "bert-base-cased"
     tokenizer = BertTokenizer.from_pretrained(BERT_MODEL_NAME)
