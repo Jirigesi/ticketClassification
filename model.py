@@ -1,7 +1,6 @@
 from BugReportsDataset import BugReportsDataset
 from BugRepotsClassifier import BugRepotsClassifier
 from BugReportsDataModule import BugReportsDataModule
-from tqdm.notebook import tqdm_notebook
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger
@@ -53,7 +52,7 @@ def evaluate_model(trained_model, val_df, tokenizer, MAX_TOKEN_COUNT):
     )
     labels = []
     predictions = []
-    for item in tqdm_notebook(val_dataset):
+    for item in val_dataset:
         _, prediction = trained_model(
             item["input_ids"].unsqueeze(dim=0),
             item["attention_mask"].unsqueeze(dim=0)
